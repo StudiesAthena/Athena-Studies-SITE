@@ -59,6 +59,7 @@ const App: React.FC = () => {
   }
 
   return (
+    // Fix: Remove 'future' prop as it is not supported in HashRouter component directly in this version's types
     <Router>
       <div className="flex flex-col min-h-screen transition-colors duration-300">
         <Navbar theme={theme} toggleTheme={toggleTheme} />

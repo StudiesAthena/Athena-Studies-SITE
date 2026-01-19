@@ -191,8 +191,10 @@ export const AdminDashboard: React.FC = () => {
                         <img src={article.imageUrl} className="w-20 h-20 rounded-2xl object-cover shadow-sm" alt="" />
                         <div>
                           <h3 className="font-bold text-slate-900 dark:text-white group-hover:text-athena-blue transition-colors text-lg">{article.title}</h3>
-                          <div className="flex items-center gap-3 text-xs text-slate-400 font-bold mt-1">
-                            <span className="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full uppercase tracking-widest text-[9px] text-athena-blue">{article.category}</span>
+                          <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400 font-bold mt-2">
+                            {article.category.split(',').map((cat, i) => (
+                              <span key={i} className="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full uppercase tracking-widest text-[9px] text-athena-blue">{cat.trim()}</span>
+                            ))}
                             <span>•</span>
                             <span>{article.date}</span>
                           </div>
@@ -233,8 +235,8 @@ export const AdminDashboard: React.FC = () => {
                   <div className="text-[10px] font-bold uppercase opacity-60">Posts Ativos</div>
                 </div>
                 <div className="bg-white/10 p-4 rounded-2xl">
-                  <div className="text-2xl font-black">{new Set(articles.map(a => a.category)).size}</div>
-                  <div className="text-[10px] font-bold uppercase opacity-60">Categorias</div>
+                  <div className="text-2xl font-black">{new Set(articles.flatMap(a => a.category.split(',').map(c => c.trim()))).size}</div>
+                  <div className="text-[10px] font-bold uppercase opacity-60">Tags Únicas</div>
                 </div>
               </div>
             </div>
@@ -293,8 +295,11 @@ export const AdminDashboard: React.FC = () => {
                     <input required value={editingArticle.title || ''} onChange={(e) => setEditingArticle({...editingArticle, title: e.target.value})} className="w-full bg-slate-50 dark:bg-slate-800 rounded-2xl py-4 px-5 outline-none border-2 border-transparent focus:border-athena-blue transition-all dark:text-white font-bold"/>
                   </div>
                   <div className="space-y-3">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Categoria</label>
-                    <input required value={editingArticle.category || ''} onChange={(e) => setEditingArticle({...editingArticle, category: e.target.value})} className="w-full bg-slate-50 dark:bg-slate-800 rounded-2xl py-4 px-5 outline-none border-2 border-transparent focus:border-athena-blue transition-all dark:text-white font-bold"/>
+                    <div className="flex items-center justify-between">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Palavras-chave (Tags)</label>
+                      <span className="text-[8px] text-athena-blue font-bold uppercase opacity-60">Separe por vírgula</span>
+                    </div>
+                    <input required placeholder="Matemática, Foco, ENEM" value={editingArticle.category || ''} onChange={(e) => setEditingArticle({...editingArticle, category: e.target.value})} className="w-full bg-slate-50 dark:bg-slate-800 rounded-2xl py-4 px-5 outline-none border-2 border-transparent focus:border-athena-blue transition-all dark:text-white font-bold"/>
                   </div>
                 </div>
 

@@ -67,6 +67,10 @@ export const ArticleDetail: React.FC = () => {
     return content.split('\n').map(line => line.trim() ? `<p>${line}</p>` : '').join('');
   };
 
+  const handleTagClick = (tag: string) => {
+    navigate('/blog', { state: { category: tag.trim() } });
+  };
+
   return (
     <div className="bg-white dark:bg-athena-dark min-h-screen pb-24">
       {/* Hero Section */}
@@ -82,10 +86,16 @@ export const ArticleDetail: React.FC = () => {
               >
                 <ArrowLeft size={18} /> Voltar para o Blog
               </button>
-              <div className="flex items-center gap-3">
-                <span className="bg-athena-blue text-white px-5 py-2 rounded-full text-[11px] font-black uppercase tracking-[0.2em] shadow-xl">
-                  {article.category}
-                </span>
+              <div className="flex flex-wrap items-center gap-3">
+                {article.category.split(',').map((cat, i) => (
+                  <button 
+                    key={i} 
+                    onClick={() => handleTagClick(cat)}
+                    className="bg-athena-blue text-white px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-xl hover:bg-white hover:text-athena-blue transition-all"
+                  >
+                    {cat.trim()}
+                  </button>
+                ))}
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white font-heading leading-[1.1]">
                 {article.title}
@@ -169,13 +179,18 @@ export const ArticleDetail: React.FC = () => {
             <div className="bg-athena-pink p-10 rounded-[3rem] text-white shadow-xl space-y-6">
               <div className="flex items-center gap-3">
                 <Tag size={20} />
-                <h3 className="text-xl font-bold font-heading">Categorias</h3>
+                <h3 className="text-xl font-bold font-heading">Tags do Artigo</h3>
               </div>
               <div className="flex flex-wrap gap-2">
-                <span className="bg-white/20 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest cursor-pointer hover:bg-white/30 transition-colors">Matemática</span>
-                <span className="bg-white/20 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest cursor-pointer hover:bg-white/30 transition-colors">Organização</span>
-                <span className="bg-white/20 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest cursor-pointer hover:bg-white/30 transition-colors">Foco</span>
-                <span className="bg-white/20 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest cursor-pointer hover:bg-white/30 transition-colors">Estratégia</span>
+                {article.category.split(',').map((cat, i) => (
+                  <button 
+                    key={i} 
+                    onClick={() => handleTagClick(cat)}
+                    className="bg-white/20 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-athena-pink transition-all"
+                  >
+                    {cat.trim()}
+                  </button>
+                ))}
               </div>
             </div>
           </aside>

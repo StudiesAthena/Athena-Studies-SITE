@@ -122,10 +122,19 @@ export const Home: React.FC = () => {
                 <article key={article.id} onClick={() => navigate(`/blog/${article.id}`)} className="cursor-pointer group flex flex-col bg-slate-50 dark:bg-slate-900/50 rounded-[3.5rem] border-[2.5px] border-slate-100 dark:border-slate-800 overflow-hidden shadow-lg hover:shadow-2xl transition-all h-full">
                   <div className="aspect-[16/10] overflow-hidden relative flex-shrink-0">
                     <img src={article.imageUrl} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={article.title} />
-                    <div className="absolute top-5 left-5">
-                      <span className="bg-white/95 text-athena-blue px-5 py-2 rounded-full text-[11px] font-black uppercase tracking-widest shadow-md">
-                        <Hash size={12} className="inline mr-1"/>{article.category}
-                      </span>
+                    <div className="absolute top-5 left-5 flex flex-wrap gap-2">
+                      {article.category.split(',').map((cat, i) => (
+                        <button 
+                          key={i} 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            navigate('/blog', { state: { category: cat.trim() } });
+                          }}
+                          className="bg-white/95 text-athena-blue px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-md hover:bg-athena-blue hover:text-white transition-colors"
+                        >
+                          <Hash size={10} className="inline mr-1"/>{cat.trim()}
+                        </button>
+                      ))}
                     </div>
                   </div>
                   <div className="p-10 space-y-5 flex-grow flex flex-col">

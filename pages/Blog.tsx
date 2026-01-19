@@ -1,7 +1,7 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
 import { Search, Tag, Calendar as LucideCalendar, User, ArrowUpDown, Filter, Loader2 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { CTAButton } from '../components/CTAButton';
 import { supabase } from '../lib/supabase';
 import { Article } from '../types';
@@ -9,11 +9,21 @@ import { SPECIALIST_LINK } from '../constants';
 
 export const Blog: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('Tudo');
   const [sortBy, setSortBy] = useState<'recent' | 'title'>('recent');
   const [articles, setArticles] = useState<Article[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  // Efeito para capturar categoria vinda de navegação externa (Home ou ArticleDetail)
+  useEffect(() => {
+    if (location.state && (location.state as any).category) {
+      setSelectedCategory((location.state as any).category);
+      // Limpar o estado para não re-filtrar ao atualizar a página
+      window.history.replaceState({}, document.title);
+    }
+  }, [location]);
 
   useEffect(() => {
     fetchArticles();
@@ -52,15 +62,27 @@ export const Blog: React.FC = () => {
   };
 
   const categories = useMemo(() => {
-    const cats = ['Tudo', ...new Set(articles.map(a => a.category))];
-    return cats;
+    const cats = new Set<string>();
+    cats.add('Tudo');
+    articles.forEach(a => {
+      if (a.category) {
+        a.category.split(',').forEach(c => {
+          const trimmed = c.trim();
+          if (trimmed) cats.add(trimmed);
+        });
+      }
+    });
+    return Array.from(cats);
   }, [articles]);
 
   const filteredArticles = useMemo(() => {
     let result = [...articles].filter(article => {
       const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
                           article.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesCategory = selectedCategory === 'Tudo' || article.category === selectedCategory;
+      
+      const articleTags = article.category ? article.category.split(',').map(c => c.trim()) : [];
+      const matchesCategory = selectedCategory === 'Tudo' || articleTags.includes(selectedCategory);
+      
       return matchesSearch && matchesCategory;
     });
 
@@ -146,11 +168,21 @@ export const Blog: React.FC = () => {
                     >
                       <div className="relative overflow-hidden aspect-video">
                         <img src={article.imageUrl} alt={article.title} loading="lazy" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                        <div className="absolute top-4 left-4">
-                          <span className="flex items-center space-x-2 text-[10px] font-black text-athena-blue bg-white/95 px-4 py-1.5 rounded-full uppercase tracking-widest shadow-lg">
-                            <Tag className="w-3 h-3" />
-                            <span>{article.category}</span>
-                          </span>
+                        <div className="absolute top-4 left-4 flex flex-wrap gap-2 max-w-[90%]">
+                          {article.category.split(',').map((cat, i) => (
+                            <button 
+                              key={i} 
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setSelectedCategory(cat.trim());
+                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                              }}
+                              className="flex items-center space-x-2 text-[8px] font-black text-athena-blue bg-white/95 px-3 py-1.5 rounded-full uppercase tracking-widest shadow-lg hover:bg-athena-blue hover:text-white transition-colors"
+                            >
+                              <Tag className="w-2.5 h-2.5" />
+                              <span>{cat.trim()}</span>
+                            </button>
+                          ))}
                         </div>
                       </div>
                       <div className="p-8 flex-grow flex flex-col space-y-4">
