@@ -58,8 +58,14 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
     { name: 'Serviços', id: 'servicos' },
   ];
 
+  // Estilos da navbar: sólida quando scrolled ou aberta
+  const navBaseClasses = "fixed top-0 left-0 right-0 z-50 transition-all duration-300";
+  const navStateClasses = (scrolled || isOpen)
+    ? 'bg-white dark:bg-athena-dark shadow-md h-16'
+    : 'bg-white dark:bg-athena-dark h-20';
+
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/95 dark:bg-athena-dark/95 backdrop-blur-md shadow-md h-16' : 'bg-white dark:bg-athena-dark h-20'}`}>
+    <nav className={`${navBaseClasses} ${navStateClasses}`}>
       <div className="max-w-7xl mx-auto px-6 h-full flex justify-between items-center">
         <Link to="/" onClick={() => handleNavClick('inicio')} className="flex items-center space-x-3 group">
           <div className="bg-athena-blue w-9 h-9 rounded-xl flex items-center justify-center text-white font-heading font-black text-xl">
