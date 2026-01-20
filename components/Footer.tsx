@@ -1,7 +1,24 @@
 
 import React from 'react';
-import { Instagram, Mail, Shield } from 'lucide-react';
+import { Instagram, Mail, Shield, Music2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+
+// Como algumas versões do lucide podem não ter o ícone específico 'Tiktok', 
+// usamos um SVG personalizado para garantir a identidade visual correta.
+const TikTokIcon = ({ size = 18 }: { size?: number }) => (
+  <svg 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round"
+  >
+    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+  </svg>
+);
 
 export const Footer: React.FC = () => {
   return (
@@ -30,12 +47,23 @@ export const Footer: React.FC = () => {
             target="_blank" 
             rel="noopener noreferrer"
             className="hover:text-athena-pink transition-all transform hover:scale-110"
+            title="Instagram"
           >
             <Instagram size={18} />
           </a>
           <a 
+            href="https://www.tiktok.com/@studiesathena" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="hover:text-athena-pink transition-all transform hover:scale-110"
+            title="TikTok"
+          >
+            <TikTokIcon size={18} />
+          </a>
+          <a 
             href="mailto:studiesathena2025@gmail.com" 
             className="hover:text-athena-pink transition-all transform hover:scale-110"
+            title="E-mail"
           >
             <Mail size={18} />
           </a>
