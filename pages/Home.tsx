@@ -223,6 +223,14 @@ export const Home: React.FC = () => {
                 btnExtraClass = "!bg-[#AF8F2C] hover:!bg-[#8C7123] border-none shadow-2xl shadow-gold/40 transition-all duration-300";
               }
 
+              const handleAction = () => {
+                if (isParthenon) {
+                  window.open('https://parthenonplanner.vercel.app/', '_blank', 'noopener,noreferrer');
+                } else {
+                  navigate('/servicos');
+                }
+              };
+
               const cardBaseStyles = isParthenon 
                 ? 'bg-slate-950 dark:bg-slate-950 border-[#AF8F2C] ring-[8px] ring-[#AF8F2C]/5 scale-[1.03] z-10' 
                 : 'bg-white dark:bg-athena-dark border-slate-100 dark:border-slate-800';
@@ -274,7 +282,7 @@ export const Home: React.FC = () => {
                   <CTAButton 
                     variant={btnVariant} 
                     className={`w-full py-5 text-[13px] uppercase tracking-[0.2em] font-black mt-4 ${btnExtraClass}`}
-                    onClick={() => navigate('/servicos')}
+                    onClick={handleAction}
                   >
                     {btnText}
                   </CTAButton>
