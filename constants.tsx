@@ -20,7 +20,7 @@ export const SERVICES: (Service & { isPremium?: boolean; benefits: string[]; for
     icon: <Calendar className="w-6 h-6" />,
     category: 'produto',
     benefits: ['Suporte personalizado', 'Estratégia adaptada', 'Material exclusivo'],
-    forMe: 'Ideal para estudantes que sentem dificuldade em organizar sua rotina, gerenciar seu tempo e definir uma estratégia de estudos. Nossos Study Panner traçam um plano de ação claro e um roteiro objetivo. Se você quer parar de se sentir perdido e performar nos seus estudos, este é o seu ponto de partida.'
+    forMe: 'Ideal para estudantes que sentem dificuldade em organizar sua rotina, gerenciar seu tempo e definir uma estratégia de estudos. Nossos Study Planners traçam um plano de ação claro e um roteiro objetivo. Se você quer parar de se sentir perdido e performar nos seus estudos, este é o seu ponto de partida.'
   },
   {
     id: 'planner-essencial',
@@ -34,11 +34,11 @@ export const SERVICES: (Service & { isPremium?: boolean; benefits: string[]; for
   {
     id: 'aulas-particulares',
     title: 'Aulas Particulares',
-    description: 'Ensino individualizado com foco em clareza e performance, desmistificando a matemática.',
+    description: 'Ensino individualizado com foco em clareza e performance, para você atingir os seus objetivos.',
     icon: <GraduationCap className="w-6 h-6" />,
     category: 'aula',
     benefits: ['Resolução de dúvidas', 'Material de apoio', 'Flexibilidade de horário'],
-    forMe: 'Para quem precisa de um suporte individual e especializado para sanar em tempo real suas dúvidas. Nossas aulas são para quem precisa de um "empurrãozinho" ou sente que a base matemática está frágil. Atendemos Ensino Fundamental, Médio e provas de vestibulares e concurso público.'
+    forMe: 'Para quem precisa de um suporte individual e especializado para sanar em tempo real suas dúvidas e buscar aquela aprovação. Nossas aulas são para quem precisa de um apoio nos estudos ou sente que a base matemática está frágil. Atendemos Ensino Fundamental, Médio e provas de vestibulares e concurso público.'
   },
   {
     id: 'listas-exercicios',
@@ -47,7 +47,7 @@ export const SERVICES: (Service & { isPremium?: boolean; benefits: string[]; for
     icon: <ClipboardList className="w-6 h-6" />,
     category: 'produto',
     benefits: ['Gabarito comentado', 'Dicas de resolução', 'Foco no seu objetivo'],
-    forMe: 'Essencial para vestibulandos, concurseiros e alunos do Ensino Fundamental Médio em fase de provas. Treine suas estratégias resolvendo questões que realmente caem, com o suporte de gabaritos explicativos.'
+    forMe: 'Essencial para vestibulandos, concurseiros e alunos do Ensino Fundamental e Médio em fase de provas. Treine suas estratégias resolvendo questões que realmente caem, com o suporte de gabaritos explicativos.'
   },
   {
     id: 'ebooks',
@@ -56,7 +56,7 @@ export const SERVICES: (Service & { isPremium?: boolean; benefits: string[]; for
     icon: <BookOpen className="w-6 h-6" />,
     category: 'produto',
     benefits: ['Acesso imediato', 'Leitura descomplicada', 'Material exclusivo'],
-    forMe: 'Para o estudante curioso e que quer aprender técnicas de estudo e desenvolvimento de matemática. Uma leitura leve para qualquer idade que deseja melhorar a eficiência e seu desempenho.'
+    forMe: 'Para o estudante curioso e que quer aprender técnicas de estudo, melhorando a eficiência e desempenho. Uma leitura leve para qualquer idade.'
   },
   {
     id: 'parthenon-planner',
