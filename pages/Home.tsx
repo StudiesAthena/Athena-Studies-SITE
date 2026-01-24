@@ -261,9 +261,15 @@ export const Home: React.FC = () => {
                   )}
                   
                   <div className="flex flex-col flex-grow">
-                    <h3 className={`text-2xl lg:text-3xl font-bold font-heading mb-6 tracking-tight min-h-[5rem] flex items-start ${titleColor}`}>
+                    <h3 className={`text-2xl lg:text-3xl font-bold font-heading mb-2 tracking-tight flex items-start ${titleColor}`}>
                       {service.title}
                     </h3>
+
+                    {service.startingPrice && (
+                      <div className={`text-sm font-black mb-6 uppercase tracking-wider ${isParthenon ? 'text-[#AF8F2C]' : 'text-athena-pink'}`}>
+                        {service.startingPrice}
+                      </div>
+                    )}
                     
                     <p className={`mb-8 leading-relaxed font-semibold text-base opacity-90 min-h-[6.5rem] ${descColor}`}>
                       {service.description}

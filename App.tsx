@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { Services } from './pages/Services';
+import { Catalog } from './pages/Catalog';
 import { Blog } from './pages/Blog';
 import { ArticleDetail } from './pages/ArticleDetail';
 import { AdminLogin } from './pages/AdminLogin';
@@ -59,7 +60,7 @@ const App: React.FC = () => {
   }
 
   return (
-    // Fix: Remove 'future' prop as it is not supported in HashRouter component directly in this version's types
+    // Fixed: Removed 'future' prop from HashRouter as it's not supported by the available react-router-dom types.
     <Router>
       <div className="flex flex-col min-h-screen transition-colors duration-300">
         <Navbar theme={theme} toggleTheme={toggleTheme} />
@@ -67,6 +68,7 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/servicos" element={<Services />} />
+            <Route path="/biblioteca" element={<Catalog />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:id" element={<ArticleDetail />} />
             <Route path="/admin/login" element={!isAdmin ? <AdminLogin /> : <Navigate to="/admin/dashboard" />} />

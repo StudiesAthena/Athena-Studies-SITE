@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { SERVICES, ATHENA_IG_DM_LINK, SPECIALIST_LINK } from '../constants';
 import { CTAButton } from '../components/CTAButton';
 import { Check, Sparkles, Target, HelpCircle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 // IDs de imagens do Unsplash selecionadas para representar cada serviço de forma única e impactante
 const SERVICE_IMAGES = [
@@ -15,6 +16,8 @@ const SERVICE_IMAGES = [
 ];
 
 export const Services: React.FC = () => {
+  const navigate = useNavigate();
+  
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -32,19 +35,23 @@ export const Services: React.FC = () => {
   };
 
   const handleServiceAction = (id: string) => {
-    let link = ATHENA_IG_DM_LINK;
-    
     switch (id) {
       case 'planner-essencial':
-        link = 'https://forms.gle/g8xymNJ423T7dxe88';
+        navigate('/biblioteca', { state: { section: 'planners' } });
+        break;
+      case 'ebooks':
+        navigate('/biblioteca', { state: { section: 'ebooks' } });
         break;
       case 'parthenon-planner':
-        link = 'https://parthenonplanner.vercel.app/';
+        window.open('https://parthenonplanner.vercel.app/', '_blank', 'noopener,noreferrer');
         break;
-      // Os outros casos (planner-personalizado, aulas-particulares, listas-exercicios, ebooks) utilizam o link do Instagram DM
+      case 'planner-personalizado':
+      case 'aulas-particulares':
+      case 'listas-exercicios':
+      default:
+        window.open(ATHENA_IG_DM_LINK, '_blank', 'noopener,noreferrer');
+        break;
     }
-    
-    window.open(link, '_blank', 'noopener,noreferrer');
   };
 
   const faqItems = [
@@ -192,6 +199,11 @@ export const Services: React.FC = () => {
                       <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white font-heading leading-tight">
                         {service.title}
                       </h2>
+                      {service.startingPrice && (
+                        <div className="text-athena-pink dark:text-pink-400 font-black text-xl md:text-2xl uppercase tracking-tighter">
+                          {service.startingPrice}
+                        </div>
+                      )}
                       <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 font-medium leading-relaxed italic opacity-90">
                         {service.description}
                       </p>

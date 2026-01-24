@@ -18,3 +18,13 @@ export interface Article {
   category: string;
   imageUrl: string;
 }
+
+export interface Product {
+  id: string;
+  title: string;
+  description: string;
+  price: string;
+  images: string[];
+  category: 'planner' | 'ebook';
+  buyLink: string;
+}
