@@ -258,7 +258,7 @@ export const AdminDashboard: React.FC = () => {
               <div className="flex flex-col gap-3">
                 <button 
                   onClick={executeDelete}
-                  className="w-full py-4 bg-athena-pink text-white rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-pink-700 transition-colors shadow-lg shadow-athena-pink/20"
+                  className="w-full py-4 bg-athena-pink text-white rounded-2xl font-black uppercase tracking-widest text-xs hover:opacity-90 transition-colors shadow-lg shadow-athena-pink/20"
                 >
                   SIM, EXCLUIR AGORA
                 </button>

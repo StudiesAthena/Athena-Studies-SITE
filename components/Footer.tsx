@@ -3,8 +3,6 @@ import React from 'react';
 import { Instagram, Mail, Shield, Music2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-// Como algumas versões do lucide podem não ter o ícone específico 'Tiktok', 
-// usamos um SVG personalizado para garantir a identidade visual correta.
 const TikTokIcon = ({ size = 18 }: { size?: number }) => (
   <svg 
     width={size} 
@@ -25,12 +23,23 @@ export const Footer: React.FC = () => {
     <footer className="bg-athena-blue text-white py-5 px-6 border-t border-white/5">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         
-        {/* Esquerda: Logo + Frase */}
         <div className="flex flex-col items-center md:items-start">
           <div className="flex items-center space-x-3">
-            <div className="bg-white/20 w-7 h-7 rounded-lg flex items-center justify-center font-heading font-black text-sm border-[1.5px] border-white/30">
-              A
-            </div>
+            <img 
+              src="https://i.imgur.com/SD28FYh.png" 
+              alt="A" 
+              className="w-8 h-8 object-contain rounded-lg border border-white/20 bg-white/10"
+              onError={(e) => {
+                (e.target as HTMLImageElement).style.display = 'none';
+                const parent = (e.target as HTMLImageElement).parentElement;
+                if (parent) {
+                  const fallback = document.createElement('div');
+                  fallback.className = "bg-white/20 w-7 h-7 rounded-lg flex items-center justify-center font-heading font-black text-sm border-[1.5px] border-white/30";
+                  fallback.innerText = "A";
+                  parent.prepend(fallback);
+                }
+              }}
+            />
             <span className="text-lg font-bold tracking-tight font-heading">
               Athena<span className="text-athena-pink">Studies</span>
             </span>
@@ -40,7 +49,6 @@ export const Footer: React.FC = () => {
           </p>
         </div>
 
-        {/* Centro: Ícones */}
         <div className="flex items-center space-x-8">
           <a 
             href="https://www.instagram.com/studiesathena/" 
@@ -76,7 +84,6 @@ export const Footer: React.FC = () => {
           </Link>
         </div>
 
-        {/* Direita: Copyright */}
         <div className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40">
           2026 Athena
         </div>

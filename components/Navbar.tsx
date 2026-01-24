@@ -58,7 +58,6 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
     { name: 'Serviços', id: 'servicos' },
   ];
 
-  // Estilos da navbar: sólida quando scrolled ou aberta
   const navBaseClasses = "fixed top-0 left-0 right-0 z-50 transition-all duration-300";
   const navStateClasses = (scrolled || isOpen)
     ? 'bg-white dark:bg-athena-dark shadow-md h-16'
@@ -68,9 +67,21 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
     <nav className={`${navBaseClasses} ${navStateClasses}`}>
       <div className="max-w-7xl mx-auto px-6 h-full flex justify-between items-center">
         <Link to="/" onClick={() => handleNavClick('inicio')} className="flex items-center space-x-3 group">
-          <div className="bg-athena-blue w-9 h-9 rounded-xl flex items-center justify-center text-white font-heading font-black text-xl">
-            A
-          </div>
+          <img 
+            src="https://i.imgur.com/SD28FYh.png" 
+            alt="Athena Logo" 
+            className="w-10 h-10 object-contain rounded-xl"
+            onError={(e) => {
+              (e.target as HTMLImageElement).style.display = 'none';
+              const parent = (e.target as HTMLImageElement).parentElement;
+              if (parent) {
+                const fallback = document.createElement('div');
+                fallback.className = "bg-athena-blue w-9 h-9 rounded-xl flex items-center justify-center text-white font-heading font-black text-xl";
+                fallback.innerText = "A";
+                parent.prepend(fallback);
+              }
+            }}
+          />
           <span className="text-xl md:text-2xl font-bold tracking-tight text-slate-900 dark:text-white font-heading">
             Athena<span className="text-athena-pink">Studies</span>
           </span>

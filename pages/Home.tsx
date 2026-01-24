@@ -1,6 +1,5 @@
 
 import React, { useState, useEffect } from 'react';
-/* Added CheckCircle2 to the imports from lucide-react */
 import { ArrowRight, Calendar as LucideCalendar, Loader2, Hash, CheckCircle2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { CTAButton } from '../components/CTAButton';
@@ -149,7 +148,7 @@ export const Home: React.FC = () => {
                     </p>
                     <div className="mt-auto pt-6 flex items-center justify-between border-t border-slate-200 dark:border-slate-800">
                       <div className="flex items-center gap-3">
-                        <div className="w-7 h-7 rounded-full bg-athena-blue text-white flex items-center justify-center font-black text-[11px]">A</div>
+                        <img src="https://i.imgur.com/SD28FYh.png" alt="A" className="w-7 h-7 rounded-full object-contain border border-slate-200 bg-white" />
                         <span className="text-[11px] font-black text-slate-800 dark:text-slate-200 uppercase tracking-tighter">Equipe Athena</span>
                       </div>
                       <ArrowRight size={22} className="text-athena-pink transition-all group-hover:translate-x-2" />

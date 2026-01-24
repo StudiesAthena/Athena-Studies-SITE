@@ -38,9 +38,21 @@ export const AdminLogin: React.FC = () => {
       <div className="max-w-md w-full">
         <div className="bg-white dark:bg-slate-900 rounded-[3rem] shadow-2xl p-10 border border-slate-200 dark:border-slate-800 space-y-8">
           <div className="text-center space-y-4">
-            <div className="bg-athena-blue w-14 h-14 rounded-2xl flex items-center justify-center text-white font-heading font-black text-2xl mx-auto shadow-lg">
-              A
-            </div>
+            <img 
+              src="https://i.imgur.com/SD28FYh.png" 
+              alt="Athena" 
+              className="w-16 h-16 object-contain rounded-2xl mx-auto shadow-lg"
+              onError={(e) => {
+                (e.target as HTMLImageElement).style.display = 'none';
+                const parent = (e.target as HTMLImageElement).parentElement;
+                if (parent) {
+                  const fallback = document.createElement('div');
+                  fallback.className = "bg-athena-blue w-14 h-14 rounded-2xl flex items-center justify-center text-white font-heading font-black text-2xl mx-auto shadow-lg";
+                  fallback.innerText = "A";
+                  parent.prepend(fallback);
+                }
+              }}
+            />
             <h1 className="text-2xl font-bold font-heading text-slate-900 dark:text-white">Admin Athena</h1>
             <p className="text-slate-500 text-sm">Acesso restrito para gerenciamento de conteúdo.</p>
           </div>

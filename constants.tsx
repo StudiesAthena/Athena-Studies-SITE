@@ -4,8 +4,8 @@ import { BookOpen, Calendar, GraduationCap, Crown, Target, Zap, Compass, FileTex
 import { Service, Article, Product } from './types';
 
 export const COLORS = {
-  primary: '#1E40AF', 
-  secondary: '#BE185D', 
+  primary: '#0a6783', 
+  secondary: '#fe5749', 
   gold: '#AF8F2C', 
 };
 
