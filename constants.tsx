@@ -26,7 +26,7 @@ export const CATALOG_PRODUCTS: Product[] = [
       'https://i.imgur.com/WNJELur.png'
     ],
     category: 'planner',
-    buyLink: 'https://buy.stripe.com/3cIbJ1eHi5AAfoUfoedQQ00'
+    buyLink: 'https://link.picpay.com/p/176929133469753e461fdab'
   },
   {
     id: 'p2',
@@ -85,7 +85,7 @@ export const SERVICES: (Service & { isPremium?: boolean; benefits: string[]; for
     category: 'produto',
     benefits: ['Suporte personalizado', 'Estratégia adaptada', 'Material exclusivo'],
     startingPrice: 'A partir de R$ 69,90',
-    forMe: 'Ideal para estudantes que sentem dificuldade em organizar sua rotina, gerenciar seu tempo e definir uma estratégia de estudos. Nossos Study Planners traçam um plano de ação claro e um roteiro objective. Se você quer parar de se sentir perdido e performar nos seus estudos, este é o seu ponto de partida.'
+    forMe: 'Ideal para estudantes que sentem dificuldade em organizar sua rotina, gerenciar seu tempo e definir uma estratégia de estudos. Nossos Study Planners traçam um plano de ação claro e um roteiro objetivo. Se você quer parar de se sentir perdido e performar nos seus estudos, este é o seu ponto de partida.'
   },
   {
     id: 'planner-essencial',
