@@ -56,6 +56,7 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
     { name: 'Blog', id: 'blog' },
     { name: 'Sobre', id: 'sobre' },
     { name: 'Serviços', id: 'servicos' },
+    { name: 'Recomendações', id: 'recomendacoes' },
   ];
 
   const navBaseClasses = "fixed top-0 left-0 right-0 z-50 transition-all duration-300";
@@ -124,7 +125,7 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
       </div>
 
       {isOpen && (
-        <div className="md:hidden fixed inset-0 top-16 bg-white dark:bg-athena-dark z-40 p-8 space-y-6 animate-in fade-in slide-in-from-top-4">
+        <div className="md:hidden fixed inset-0 top-16 bg-white dark:bg-athena-dark z-40 p-8 space-y-6 animate-in fade-in slide-in-from-top-4 overflow-y-auto">
           {navLinks.map((link) => (
             <button 
               key={link.id} 

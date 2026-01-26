@@ -1,11 +1,55 @@
 
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Calendar as LucideCalendar, Loader2, Hash, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, Calendar as LucideCalendar, Loader2, Hash, CheckCircle2, ShoppingCart, ExternalLink, Gift, Sparkles, AlertCircle, User, BookOpen, Calendar } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { CTAButton } from '../components/CTAButton';
 import { SERVICES, PILARES } from '../constants';
 import { supabase } from '../lib/supabase';
 import { Article } from '../types';
+
+const RecommendationCard = ({ title, author, desc, price, img, icon: Icon, iconBg, link, isFree = false }: any) => (
+  <div className="group bg-white dark:bg-slate-900 rounded-[3rem] border-[3px] border-slate-100 dark:border-slate-800 overflow-hidden shadow-xl hover:shadow-2xl transition-all h-full flex flex-col">
+    <div className="aspect-[16/10] overflow-hidden relative">
+      {img ? (
+        <img src={img} alt={title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+      ) : (
+        <div className={`w-full h-full flex items-center justify-center ${iconBg}`}>
+          {Icon && <Icon size={64} className="text-white opacity-90 group-hover:scale-110 transition-transform duration-500" />}
+        </div>
+      )}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+      {isFree && (
+        <div className="absolute top-6 left-6 bg-emerald-500 text-white px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg flex items-center gap-2">
+          <Gift size={14} /> Gratuito
+        </div>
+      )}
+    </div>
+    <div className="p-8 space-y-4 flex-grow flex flex-col">
+      <div className="space-y-1.5">
+        {!isFree && price && <div className="text-athena-pink font-black text-sm uppercase tracking-widest">{price}</div>}
+        <h4 className="text-2xl font-bold font-heading text-slate-900 dark:text-white leading-tight">{title}</h4>
+        {author && (
+          <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 font-bold text-[10px] uppercase tracking-wider">
+            <User size={12} className="text-athena-blue" />
+            <span>Autor: {author}</span>
+          </div>
+        )}
+      </div>
+      <p className="text-slate-600 dark:text-slate-400 font-medium leading-relaxed flex-grow text-sm opacity-90">{desc}</p>
+      <CTAButton 
+        variant={isFree ? "outline" : "primary"} 
+        className="w-full py-3.5 text-[11px] uppercase tracking-widest font-black flex items-center justify-center gap-2"
+        onClick={() => window.open(link, '_blank')}
+      >
+        {isFree ? (
+          <><ExternalLink size={16} /> Acessar Recurso</>
+        ) : (
+          <><ExternalLink size={16} /> SABER MAIS</>
+        )}
+      </CTAButton>
+    </div>
+  </div>
+);
 
 export const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -198,7 +242,7 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* 4. SECTION: SERVIÇOS (Redirecionamento para Página de Detalhamento) */}
+      {/* 4. SECTION: SERVIÇOS */}
       <section id="servicos" className="py-28 bg-white dark:bg-athena-dark">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-20 space-y-5">
@@ -294,6 +338,92 @@ export const Home: React.FC = () => {
                 </div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* 5. RECOMENDAÇÕES */}
+      <section id="recomendacoes" className="py-28 bg-athena-light dark:bg-slate-950">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-20 space-y-5">
+            <div className="inline-flex items-center gap-2 bg-athena-blue/10 text-athena-blue px-6 py-2 rounded-full text-[11px] font-black uppercase tracking-[0.2em]">
+              <Sparkles size={14} /> Curadoria Educacional
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-athena-dark dark:text-white font-heading">Materiais que Recomendamos</h2>
+            <p className="text-xl text-slate-700 dark:text-slate-300 font-medium max-w-2xl mx-auto">
+              Ferramentas e recursos selecionados pelo nosso time para potencializar seu aprendizado.
+            </p>
+          </div>
+
+          <div className="space-y-20">
+            {/* Row 1: Paid Materials (2 Cards) */}
+            <div className="space-y-10">
+              <div className="flex items-center gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+                <h3 className="text-2xl font-black font-heading text-athena-blue uppercase tracking-widest whitespace-nowrap">Materiais Pagos</h3>
+                <div className="h-px flex-grow bg-slate-200 dark:bg-slate-800"></div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <RecommendationCard 
+                  title="Mapas Mentais de Matemática"
+                  author="Josimar Ferreira"
+                  desc="Uma coleção estratégica de mapas mentais que simplifica conteúdos complexos de matemática, ideal para revisões rápidas e memorização visual de fórmulas e conceitos."
+                  icon={BookOpen}
+                  iconBg="bg-athena-blue"
+                  link="https://go.hotmart.com/D104067787O"
+                />
+                <RecommendationCard 
+                  title="Matemática em Mapas Mentais"
+                  author="Super Aulas"
+                  desc="Resumos visuais focados em alta performance para vestibulandos e concurseiros. Transforme sua forma de estudar com estruturas lógicas que facilitam a compreensão."
+                  icon={Calendar}
+                  iconBg="bg-athena-pink"
+                  link="https://go.hotmart.com/F104067830O"
+                />
+              </div>
+
+              {/* Disclaimer ajustado para tamanho moderado abaixo dos produtos pagos */}
+              <div className="bg-athena-blue/5 dark:bg-athena-blue/10 border-l-4 border-athena-blue p-5 md:p-6 rounded-r-[2rem] rounded-l-sm flex items-start gap-4 shadow-sm">
+                <AlertCircle size={22} className="text-athena-blue flex-shrink-0 mt-0.5" />
+                <div className="space-y-1.5">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-athena-blue block">Aviso Legal & Responsabilidade</span>
+                  <p className="text-sm md:text-base leading-relaxed text-slate-700 dark:text-slate-300 font-medium italic opacity-90">
+                    Os produtos divulgados não pertencem à Athena e não foram desenvolvidos pela mesma. Não somos responsáveis pelo conteúdo, suporte ou resultados. Indicamos apenas materiais que conhecemos e julgamos úteis ou relevantes para a jornada de estudos.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Row 2: Free Platforms (3 Cards) */}
+            <div className="space-y-10">
+              <div className="flex items-center gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+                <h3 className="text-2xl font-black font-heading text-emerald-600 uppercase tracking-widest">Plataformas Gratuitas</h3>
+                <div className="h-px flex-grow bg-slate-200 dark:bg-slate-800"></div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <RecommendationCard 
+                  isFree={true}
+                  title="GeoGebra Classic"
+                  desc="O software de matemática dinâmica mais completo do mundo. Visualize funções, geometria, álgebra e 3D em tempo real. Essencial para compreensão visual de conceitos abstratos."
+                  img="https://i.imgur.com/SDugiZP.png"
+                  link="https://www.geogebra.org/classic"
+                />
+                <RecommendationCard 
+                  isFree={true}
+                  title="WolframAlpha"
+                  desc="O 'Google' da matemática. Resolve desde equações simples até cálculos complexos de engenharia, oferecendo insights valiosos sobre propriedades matemáticas e gráficos."
+                  img="https://i.imgur.com/53AK9vx.png"
+                  link="https://www.wolframalpha.com/"
+                />
+                <RecommendationCard 
+                  isFree={true}
+                  title="Khan Academy"
+                  desc="Plataforma líder mundial em educação gratuita. Oferece lições em vídeo, exercícios práticos e um painel de aprendizado personalizado que permite aos alunos estudar no seu próprio ritmo, dentro e fora da sala de aula."
+                  img="https://i.imgur.com/5Uq8bnX.png"
+                  link="https://pt.khanacademy.org/"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
